@@ -68,3 +68,22 @@ cropDownloadBtn.addEventListener('click', () => {
   link.href = cropCanvas.toDataURL('image/png');
   link.click();
 });
+
+// Initialize cropper with aspect ratio options
+let cropper;
+function initCropTool(imageElement) {
+  if (cropper) cropper.destroy();
+  
+  cropper = new Cropper(imageElement, {
+    viewMode: 1,
+    autoCropArea: 1,
+    responsive: true,
+  });
+
+  document.querySelectorAll('.aspect-ratio-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ratio = btn.getAttribute('data-ratio');
+      cropper.setAspectRatio(ratio === 'free' ? NaN : parseFloat(ratio));
+    });
+  });
+}

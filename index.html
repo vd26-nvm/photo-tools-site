@@ -32,6 +32,17 @@
             <input type="number" id="border-thickness" value="20" min="0" max="200">
         </label>
     </div>
+    <div class="image-preview-container">
+        <img id="preview-image" src="" alt="Preview">
+        </div>
+
+        <div class="aspect-ratio-controls">
+        <button class="aspect-ratio-btn" data-ratio="free">Free</button>
+        <button class="aspect-ratio-btn" data-ratio="1">1:1</button>
+        <button class="aspect-ratio-btn" data-ratio="1.3333">4:3</button>
+        <button class="aspect-ratio-btn" data-ratio="1.7777">16:9</button>
+    </div>
+
     <canvas id="border-preview-canvas"></canvas>
     <!-- Hidden canvas just for high-res export -->
     <canvas id="border-download-canvas" style="display: none;"></canvas>
