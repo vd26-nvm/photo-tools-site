@@ -42,7 +42,16 @@
 
   <section id="tool-crop" class="tool-section">
     <h2>Crop Tool</h2>
-    <!-- Add similar layout here -->
+    <div class="upload-area" onclick="document.getElementById('crop-upload').click()">
+    Click to upload an image or drag here
+    <input type="file" id="crop-upload" hidden>
+    </div>
+
+    <canvas id="crop-canvas"></canvas>
+    <div style="margin-top: 20px;">
+    <button class="download-btn" id="crop-download-btn">Download Cropped Image</button>
+    </div>
+
   </section>
 
   <section id="tool-aspect" class="tool-section">

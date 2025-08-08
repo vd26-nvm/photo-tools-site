@@ -106,6 +106,9 @@ canvas {
 .controls {
   margin: 20px 0;
 }
+#crop-canvas {
+  cursor: crosshair;
+}
 
 button.download-btn {
   background: var(--primary);
