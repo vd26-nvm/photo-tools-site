@@ -1,6 +1,10 @@
 const uploadInput = document.getElementById('border-upload');
-const canvas = document.getElementById('border-canvas');
-const ctx = canvas.getContext('2d');
+
+const previewCanvas = document.getElementById('border-preview-canvas');
+const previewCtx = previewCanvas.getContext('2d');
+
+const downloadCanvas = document.getElementById('border-download-canvas');
+const downloadCtx = downloadCanvas.getContext('2d');
 
 const colorInput = document.getElementById('border-color');
 const thicknessInput = document.getElementById('border-thickness');
@@ -17,14 +21,51 @@ uploadInput.addEventListener('change', (e) => {
     const img = new Image();
     img.onload = function () {
       originalImage = img;
-      drawImageWithBorder();
+      drawPreviewCanvas();
+      drawDownloadCanvas();
     };
     img.src = event.target.result;
   };
   reader.readAsDataURL(file);
 });
 
-function drawImageWithBorder() {
+colorInput.addEventListener('input', () => {
+  drawPreviewCanvas();
+  drawDownloadCanvas();
+});
+thicknessInput.addEventListener('input', () => {
+  drawPreviewCanvas();
+  drawDownloadCanvas();
+});
+
+function drawPreviewCanvas() {
+  if (!originalImage) return;
+
+  const borderSize = parseInt(thicknessInput.value);
+  const borderColor = colorInput.value;
+
+  const scaleFactor = 600 / originalImage.width; // Max width: 600px
+  const previewWidth = Math.min(600, originalImage.width + borderSize * 2 * scaleFactor);
+  const previewHeight = originalImage.height * scaleFactor + borderSize * 2 * scaleFactor;
+
+  previewCanvas.width = previewWidth;
+  previewCanvas.height = previewHeight;
+
+  // Fill background (border)
+  previewCtx.fillStyle = borderColor;
+  previewCtx.fillRect(0, 0, previewWidth, previewHeight);
+
+  // Draw scaled image
+  previewCtx.drawImage(
+    originalImage,
+    borderSize * scaleFactor,
+    borderSize * scaleFactor,
+    originalImage.width * scaleFactor,
+    originalImage.height * scaleFactor
+  );
+}
+
+function drawDownloadCanvas() {
   if (!originalImage) return;
 
   const borderSize = parseInt(thicknessInput.value);
@@ -33,25 +74,20 @@ function drawImageWithBorder() {
   const canvasWidth = originalImage.width + borderSize * 2;
   const canvasHeight = originalImage.height + borderSize * 2;
 
-  canvas.width = canvasWidth;
-  canvas.height = canvasHeight;
+  downloadCanvas.width = canvasWidth;
+  downloadCanvas.height = canvasHeight;
 
-  // Fill border color
-  ctx.fillStyle = borderColor;
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  // Fill background (border)
+  downloadCtx.fillStyle = borderColor;
+  downloadCtx.fillRect(0, 0, canvasWidth, canvasHeight);
 
   // Draw original image in the center
-  ctx.drawImage(originalImage, borderSize, borderSize);
+  downloadCtx.drawImage(originalImage, borderSize, borderSize);
 }
 
-// Redraw when border settings change
-colorInput.addEventListener('input', drawImageWithBorder);
-thicknessInput.addEventListener('input', drawImageWithBorder);
-
-// Download button
 downloadBtn.addEventListener('click', () => {
   const link = document.createElement('a');
   link.download = 'bordered-photo.png';
-  link.href = canvas.toDataURL('image/png');
+  link.href = downloadCanvas.toDataURL('image/png');
   link.click();
 });

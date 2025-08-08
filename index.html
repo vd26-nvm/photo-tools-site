@@ -32,6 +32,9 @@
             <input type="number" id="border-thickness" value="20" min="0" max="200">
         </label>
     </div>
+    <canvas id="border-preview-canvas"></canvas>
+    <!-- Hidden canvas just for high-res export -->
+    <canvas id="border-download-canvas" style="display: none;"></canvas>
 
     <canvas id="border-canvas"></canvas>
     <button class="download-btn">Download Image</button>
