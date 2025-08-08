@@ -75,13 +75,20 @@ main {
 
 .upload-area {
   border: 2px dashed var(--border);
-  padding: 30px;
+  padding: 40px 20px;
   border-radius: var(--radius);
   text-align: center;
   cursor: pointer;
   margin-bottom: 20px;
   background: #fafafa;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: 0.3s;
 }
+
 
 .upload-area:hover {
   background: #f0eef5;
