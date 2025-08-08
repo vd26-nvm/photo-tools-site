@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photographer Tools</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Photography Tools</h1>
+    <nav>
+      <button onclick="showTool('border')">Add Border</button>
+      <button onclick="showTool('crop')">Crop</button>
+      <button onclick="showTool('aspect')">Aspect Ratio</button>
+      <button onclick="showTool('split')">Split Image</button>
+    </nav>
+  </header>
+
+  <main>
+  <section id="tool-border" class="tool-section active">
+    <h2>Add Border</h2>
+    <div class="upload-area" onclick="document.getElementById('border-upload').click()">
+      Click to upload an image or drag here
+      <input type="file" id="border-upload" hidden>
+    </div>
+    <div class="controls">
+      <!-- Controls will go here -->
+    </div>
+    <canvas id="border-canvas"></canvas>
+    <button class="download-btn">Download Image</button>
+  </section>
+
+  <section id="tool-crop" class="tool-section">
+    <h2>Crop Tool</h2>
+    <!-- Add similar layout here -->
+  </section>
+
+  <section id="tool-aspect" class="tool-section">
+    <h2>Aspect Ratio Tool</h2>
+    <!-- Add layout -->
+  </section>
+
+  <section id="tool-split" class="tool-section">
+    <h2>Instagram Split Tool</h2>
+    <!-- Add layout -->
+  </section>
+</main>
+
+
+  <script src="js/border.js"></script>
+  <script src="js/crop.js"></script>
+  <script src="js/aspect.js"></script>
+  <script src="js/split.js"></script>
+    <script>
+        function showTool(tool) {
+            document.querySelectorAll('.tool-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`tool-${tool}`).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
